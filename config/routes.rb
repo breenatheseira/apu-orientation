@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root to: "home#index"
+  # In order to route the root page as the Admin's sign in page (RSB, 2013), http://stackoverflow.com/questions/19855866/how-to-set-devise-sign-in-page-as-root-page-in-rails
+  devise_scope :admin do
+    root :to => 'devise/sessions#new'
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
