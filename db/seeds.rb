@@ -7,3 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 admin = Admin.create(email: "apuorientation@mail.com", password: "123123123")
+
+student = Student.create(email: "TP000001@apu.edu.my", password: "123123123")
+student = Student.create(email: "TP000002@apu.edu.my", password: "123123123")
