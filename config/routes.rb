@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :students
   devise_for :admins
 
   get "admins/menu" => "admins#index"
@@ -11,6 +10,8 @@ Rails.application.routes.draw do
   devise_scope :admin do
     root :to => 'devise/sessions#new'
   end
+
+  devise_for :students, controllers: { registrations: "students/registrations" }
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
