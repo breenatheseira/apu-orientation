@@ -1,0 +1,21 @@
+<h1>List of Acknowledged Students</h1>
+
+<table>
+	<tr>
+		<thead>Student ID</thead>
+		<thead>Name</thead>
+		<thead>Email Address</thead>
+		<thead>Intake Code</thead>
+		<thead>Acknowledged At</thead>
+	</tr>
+	<% @students.each do |s| %>
+		<tr>
+			<td><%= s.id %></td>
+			<td><%= s.name %></td>
+			<td><%= s.email %></td>
+			<td><%= s.intake_code %></td>
+			<td><%= s.acknowledged_at %></td>
+		</tr>
+	<% end %>
+</table>
+

@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
 	# Preventing an infinite loop after admins signed in (RSB, 2013)
 	# http://stackoverflow.com/questions/19855866/how-to-set-devise-sign-in-page-as-root-page-in-rails
 	def after_sign_in_path_for(resource_or_scope)
-		admins_menu_path
+		if resource_or_scope.class.name == "Admin"
+			admins_menu_path
+		elsif resource_or_scope.class.name == "Student"
+			students_accounts_path
+		end
 	end
 
 	# def after_sign_out_path_for(resource_or_scope)

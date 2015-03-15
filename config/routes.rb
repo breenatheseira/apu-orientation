@@ -13,6 +13,11 @@ Rails.application.routes.draw do
 
   devise_for :students, controllers: { registrations: "students/registrations" }
 
+  namespace :students do
+    resources :accounts
+  end
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
