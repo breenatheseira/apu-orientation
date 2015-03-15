@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :students
   devise_for :admins
 
   get "admins/menu" => "admins#index"
