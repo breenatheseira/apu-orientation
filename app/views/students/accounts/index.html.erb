@@ -7,6 +7,7 @@
 		<thead>Email Address</thead>
 		<thead>Intake Code</thead>
 		<thead>Acknowledged At</thead>
+		<thead>Acknowledge?</thead>
 	</tr>
 	<% @students.each do |s| %>
 		<tr>
@@ -15,6 +16,7 @@
 			<td><%= s.email %></td>
 			<td><%= s.intake_code %></td>
 			<td><%= s.acknowledged_at %></td>
+			<td><%= link_to "Acknowledge", students_accounts_acknowledge_path(s) %></td>
 		</tr>
 	<% end %>
 </table>
