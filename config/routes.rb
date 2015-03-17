@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :documents
+
   devise_for :admins
 
   get "admins/menu" => "admins#index"
