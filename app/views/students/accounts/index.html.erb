@@ -19,11 +19,10 @@
 					<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
 				<% else %>
 					<%= s.acknowledged_at %>
-
 				<% end %>
 			</td>
 		</tr>
 	<% end %>
 </table>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", admins_menu_path %>
