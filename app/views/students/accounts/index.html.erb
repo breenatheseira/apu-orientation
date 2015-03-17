@@ -6,17 +6,22 @@
 		<thead>Name</thead>
 		<thead>Email Address</thead>
 		<thead>Intake Code</thead>
-		<thead>Acknowledged At</thead>
-		<thead>Acknowledge?</thead>
+		<thead>Acknowledged At</thead>		
 	</tr>
 	<% @students.each do |s| %>
 		<tr>
 			<td><%= s.id %></td>
 			<td><%= s.name %></td>
 			<td><%= s.email %></td>
-			<td><%= s.intake_code %></td>
-			<td><%= s.acknowledged_at %></td>
-			<td><%= link_to "Acknowledge", students_accounts_acknowledge_path(s) %></td>
+			<td><%= s.intake_code %></td>			
+			<td>
+				<% if s.acknowledged_at.nil? %>
+					<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
+				<% else %>
+					<%= s.acknowledged_at %>
+
+				<% end %>
+			</td>
 		</tr>
 	<% end %>
 </table>
