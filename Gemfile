@@ -44,4 +44,5 @@ group :development, :test do
 end
 
 gem 'devise'
+gem 'carrierwave'
 gem 'cloudinary'
