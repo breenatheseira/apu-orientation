@@ -28,6 +28,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
+        set_other_existing_document_to_hidden(@document.id, @document.document_type)
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: document_path }
       else
@@ -43,6 +44,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
+        set_other_existing_document_to_hidden(@document.id, @document.document_type)
         format.html { redirect_to documents_path, notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: documents_path }
       else
@@ -72,4 +74,13 @@ class DocumentsController < ApplicationController
     def document_params
       params.require(:document).permit(:name, :document_type, :document_url, :visible_status)
     end
+
+    def set_other_existing_document_to_hidden(new_document_id, new_document_type)
+      @doc = Document.where(document_type: new_document_type).where('id NOT in (:ids)', ids: new_document_id)
+
+      @doc.each do |d|
+        d.update_attributes(visible_status: false)
+      end
+    end
+
 end
