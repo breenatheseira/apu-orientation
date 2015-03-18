@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
-
+  require 'carrierwave/orm/activerecord'
+  
   # GET /documents
   # GET /documents.json
   def index
