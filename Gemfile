@@ -46,3 +46,6 @@ end
 gem 'devise'
 gem 'carrierwave'
 gem 'cloudinary'
+
+# For GUI for better UI/UX experience
+gem 'bootstrap-sass', '~> 3.3.4'
