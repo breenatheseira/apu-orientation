@@ -7,21 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	
 	<%= render 'layouts/nav' %>
-	
-	<% unless notice.nil? %>
-		<div class="alert alert-success" role="alert">
-			<%= notice %>
-		</div>
-	<% end %>
+	<div class="container-fluid">	
+		<% unless notice.nil? %>
+			<div class="alert alert-success" role="alert">
+				<%= notice %>
+			</div>
+		<% end %>
 
-	<% unless alert.nil? %>
-		<div class="alert alert-danger" role="alert">
-			<%= alert %>
-		</div>
-	<% end %>
-	
-	<%= yield %>
+		<% unless alert.nil? %>
+			<div class="alert alert-danger" role="alert">
+				<%= alert %>
+			</div>
+		<% end %>
 
+		<div class="container-fluid">
+			<%= yield %>
+		</div>
+	</div>
 </body>
 </html>
