@@ -14,4 +14,9 @@ class Students::AccountsController < ApplicationController
 		redirect_to students_accounts_path
 	end
 
+	private
+
+	def student_params
+		params.require(:student).permit(:name, :email, :password, :password_confirmation, :remember_me)
+	end
 end
