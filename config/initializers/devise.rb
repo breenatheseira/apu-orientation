@@ -5,6 +5,10 @@ Devise.setup do |config|
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # config.secret_key = '8399aaaf62c7a3594c71ab0bc19dd93fc3138ce4d048e9cd0d4ab41c9274404244077725d1fab9b64859131f439b8b2b7c33ec7b2573f6cbca1c1a0a549de0c1'
+  
+  # Enabling the Authentication Token for Android
+  config.token_authentication_key = :auth_token
+  
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
