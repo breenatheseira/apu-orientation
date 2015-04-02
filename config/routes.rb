@@ -20,6 +20,13 @@ Rails.application.routes.draw do
     get 'accounts/acknowledge_student/:id' => 'accounts#acknowledge_student', as: :accounts_acknowledge
   end
 
+  namespace :api do
+    devise_scope :student do
+      post 'sessions' => 'sessions#create', as: :student_login
+      delete 'sessions' => 'sessions#delete', as: :student_logout
+    end
+  end
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
