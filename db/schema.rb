@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402094148) do
+ActiveRecord::Schema.define(version: 20150402144207) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -57,8 +57,10 @@ ActiveRecord::Schema.define(version: 20150402094148) do
     t.string   "intake_code"
     t.datetime "acknowledged_at"
     t.string   "username"
+    t.string   "authentication_token"
   end
 
+  add_index "students", ["authentication_token"], name: "index_students_on_authentication_token", unique: true
   add_index "students", ["email"], name: "index_students_on_email", unique: true
   add_index "students", ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
 
