@@ -5,4 +5,5 @@ class Student < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   before_save :ensure_authentication_token
+  
 end
