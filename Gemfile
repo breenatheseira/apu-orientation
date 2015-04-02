@@ -44,5 +44,7 @@ group :development, :test do
 end
 
 gem 'devise'
+# To integrate Android Mobile Application with Rails backend
+gem 'devise-token_authenticatable'
 gem 'carrierwave'
 gem 'cloudinary'
