@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   namespace :api do
     devise_scope :student do
       post 'sessions' => 'sessions#create', as: :student_login
-      delete 'sessions' => 'sessions#delete', as: :student_logout
+      delete 'sessions' => 'sessions#destroy', as: :student_logout
     end
   end
 

@@ -13,7 +13,7 @@ class Api::SessionsController < Devise::SessionsController
                       :data => { :auth_token => current_student.authentication_token } }
   end
 
-  def destroy
+  def destroy    
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     current_student.update_column(:authentication_token, nil)
     render :status => 200,
