@@ -10,7 +10,10 @@ class Api::SessionsController < Devise::SessionsController
     render :status => 200,
            :json => { :success => true,
                       :info => "Logged in",
-                      :data => { :auth_token => current_student.authentication_token } }
+                      :data => {  :auth_token => current_student.authentication_token,
+                                  :name => current_student.name,
+                                  :intake_code => current_student.intake_code,
+                                  :username => current_student.username } }
     if (current_student.sign_in_count == 1)
       update_student_acknowledgement(current_student)      
     end
