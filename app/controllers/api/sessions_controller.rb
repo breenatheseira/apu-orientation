@@ -11,6 +11,9 @@ class Api::SessionsController < Devise::SessionsController
            :json => { :success => true,
                       :info => "Logged in",
                       :data => { :auth_token => current_student.authentication_token } }
+    if (current_student.sign_in_count == 1)
+      update_student_acknowledgement(current_student)      
+    end
   end
 
   def destroy    
@@ -28,4 +31,17 @@ class Api::SessionsController < Devise::SessionsController
                       :info => "Login Failed",
                       :data => {} }
   end
+
+
+  private
+
+  def update_student_acknowledgement(student)
+    student.acknowledged_at = student.current_sign_in_at
+    student.update_attributes(student_params)
+  end
+
+  def student_params
+    params.require(:student).permit(:acknowledged_at)
+  end
+
 end
