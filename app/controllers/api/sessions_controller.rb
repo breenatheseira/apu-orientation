@@ -6,14 +6,31 @@ class Api::SessionsController < Devise::SessionsController
   respond_to :json
 
   def create
+    visible_documents = Array.new   
+
+    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Orientation Schedule", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Student Handbook", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Course Schedule", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Fee Schedule", true)
+
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,
-           :json => { :success => true,
-                      :info => "Logged in",
-                      :data => {  :auth_token => current_student.authentication_token,
-                                  :name => current_student.name,
-                                  :intake_code => current_student.intake_code,
-                                  :username => current_student.username } }
+           :json => { 
+              :success => true,
+              :info => "Logged in",
+              :data => {  
+                :auth_token => current_student.authentication_token,
+                :name => current_student.name,
+                :intake_code => current_student.intake_code,
+                :username => current_student.username,
+                :documents => {
+                  :orientation_schedule => visible_documents[0],
+                  :handbook => visible_documents[1],
+                  :module_list => visible_documents[2],
+                  :fee_schedule => visible_documents[3]
+                } 
+              }
+            }
     if (current_student.sign_in_count == 1)
       update_student_acknowledgement(current_student)      
     end
