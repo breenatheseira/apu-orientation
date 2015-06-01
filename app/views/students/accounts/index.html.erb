@@ -1,13 +1,16 @@
 <h1>View Students' Record</h1>
 
-<table>
-	<tr>
-		<thead>Student ID</thead>
-		<thead>Name</thead>
-		<thead>Email Address</thead>
-		<thead>Intake Code</thead>
-		<thead>Acknowledged At</thead>		
-	</tr>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Student ID</th>
+			<th>Name</th>
+			<th>Email Address</th>
+			<th>Intake Code</th>
+			<th>Acknowledged At</th>		
+		</tr>
+	</thead>
+
 	<% @students.each do |s| %>
 		<tr>
 			<td><%= s.id %></td>
@@ -18,7 +21,7 @@
 				<% if s.acknowledged_at.nil? %>
 					<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
 				<% else %>
-					<%= s.acknowledged_at %>
+					<%= I18n.l s.acknowledged_at, format: :short %>
 				<% end %>
 			</td>
 		</tr>
