@@ -54,3 +54,6 @@ gem 'devise'
 gem 'devise-token_authenticatable'
 gem 'carrierwave'
 gem 'cloudinary'
+
+# For GUI for better UI/UX experience
+gem 'bootstrap-sass', '~> 3.3.4'

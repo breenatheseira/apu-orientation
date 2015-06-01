@@ -1,6 +1,7 @@
 <h1>Listing Documents</h1>
 
-<table>
+
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Document ID</th>
@@ -21,8 +22,8 @@
         <td><%= d.name %></td>
         <td><%= d.document_type %></td>
         <td><%= d.document_url %></td>
-        <td><%= d.created_at %></td>
-        <td><%= d.updated_at %></td>
+        <td><%= I18n.l d.created_at, format: :short %></td>
+        <td><%= I18n.l d.updated_at, format: :short %></td>
         <td>
           <% if d.visible_status == true %>
             <%= "Visible" %>
