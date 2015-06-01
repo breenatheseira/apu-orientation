@@ -31,7 +31,7 @@
             <%= "Hidden" %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', d %></td>
+        <td><%= link_to "Show", d.document_url.to_s, target: :_blank %></td>
         <td><%= link_to 'Edit', edit_document_path(d) %></td>
       </tr>
     <% end %>
