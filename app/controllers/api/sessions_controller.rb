@@ -26,7 +26,7 @@ class Api::SessionsController < Devise::SessionsController
                 :documents => {
                   :orientation_schedule => visible_documents[0],
                   :handbook => visible_documents[1],
-                  :module_list => visible_documents[2],
+                  :important_details => visible_documents[2],
                   :fee_schedule => visible_documents[3]
                 } 
               }
