@@ -25,8 +25,9 @@ Rails.application.routes.draw do
       post 'sessions' => 'sessions#create', as: :student_login
       delete 'sessions' => 'sessions#destroy', as: :student_logout
     end
+    post 'tasks' => 'tasks#index', :as => 'tasks'
   end
-
+  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

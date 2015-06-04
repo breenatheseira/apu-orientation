@@ -5,9 +5,7 @@ class Api::SessionsController < Devise::SessionsController
 
   respond_to :json
 
-  def create
-    student = Student.find_by(auth_token: params[:auth_token])
-    logger.debug "Auth Token: #{params[:auth_token]}"
+  def create   
     visible_documents = Array.new
 
     visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Orientation Schedule", true)
