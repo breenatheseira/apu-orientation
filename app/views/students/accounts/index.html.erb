@@ -7,7 +7,8 @@
 			<th>Name</th>
 			<th>Email Address</th>
 			<th>Intake Code</th>
-			<th>Acknowledged At</th>		
+			<th>Acknowledged At</th>
+			<th>Fee Acknowledgement</th>
 		</tr>
 	</thead>
 
@@ -22,6 +23,13 @@
 					<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
 				<% else %>
 					<%= I18n.l s.acknowledged_at, format: :short %>
+				<% end %>
+			</td>
+			<td>
+				<% if s.fee_acknowledgement.nil? %>
+					<%= "Not Acknowledged Yet" %>
+				<% else %>
+					<%= I18n.l s.fee_acknowledgement, format: :short %>
 				<% end %>
 			</td>
 		</tr>
