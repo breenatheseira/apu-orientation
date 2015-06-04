@@ -16,13 +16,13 @@ class Api::TasksController < ApplicationController
 		logger.info "student: #{student}"
 
 		unless student.nil?
-			student.intake_code = "hahaha"
+			student.fee_acknowledgement = Time.now
 			student.update_attributes(student_params)
 			student.save
 		end
   	end
 
   	def student_params
-    	params.require(:student).permit(:intake_code)
+    	params.require(:student).permit(:fee_acknowledgement)
 	end
 end
