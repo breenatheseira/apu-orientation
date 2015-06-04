@@ -6,12 +6,14 @@ class Api::SessionsController < Devise::SessionsController
   respond_to :json
 
   def create
-    visible_documents = Array.new   
+    student = Student.find_by(auth_token: params[:auth_token])
+    logger.debug "Auth Token: #{params[:auth_token]}"
+    visible_documents = Array.new
 
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Orientation Schedule", true)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Student Handbook", true)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Course Schedule", true)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Fee Schedule", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Orientation Schedule", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Student Handbook", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Course Schedule", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Fee Schedule", true)
 
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,
