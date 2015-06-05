@@ -8,5 +8,5 @@
 
 admin = Admin.create(email: "apuorientation@mail.com", password: "123123123")
 
-student = Student.create(email: "TP000001@apu.edu.my", password: "123123123", username: "TP000001", intake_code: "UCFF1510IT-G1", name: "John")
-student = Student.create(email: "TP000002@apu.edu.my", password: "123123123", username: "TP000002", intake_code: "UCFF1510ENG-G2", name: "Sally")
+student = Student.create(email: "TP000001@apu.edu.my", password: "123123123", username: "TP000001", intake_code: "UCFF1503DS", name: "John")
+student = Student.create(email: "TP000002@apu.edu.my", password: "123123123", username: "TP000002", intake_code: "UCD1F1503EE", name: "Sally")
