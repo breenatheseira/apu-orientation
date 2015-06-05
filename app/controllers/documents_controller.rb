@@ -5,7 +5,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = Document.all.order(intake_code: :desc)
   end
 
   # GET /documents/1
