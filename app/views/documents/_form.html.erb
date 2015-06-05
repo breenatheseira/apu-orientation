@@ -13,20 +13,21 @@
 
 
     <div class="form-group">
-      Document Name: <%= f.text_field :name %>
+      Document Name: <%= f.text_field :name, placholder: "Name of the Document" %>
     </div>  
     <div class="form-group">
       Document Type: 
       <%= f.select :document_type, [['Student Handbook', 'Student Handbook'], 
                               ['Orientation Schedule', 'Orientation Schedule'],
                               ['Fee Schedule', 'Fee Schedule'],
+                              ['Important Details', 'Important Details'],
                               ['Course Schedule', 'Course Schedule']] %>
     </div>
     <div class="form-group">
       Upload Document: <%= f.file_field :document_url %>
     </div>
     <div class="form-group">
-      Visibility: <%= f.check_box :visible_status %>
+      Intake Code: <%= f.text_field :intake_code, placholder: "Intake Code of Students Viewing the Document " %>
     </div>
     <div class="form-group">
         <div class="actions">

@@ -10,7 +10,7 @@
       <th style="text-align:center">Document URL</th>
       <th style="text-align:center">Date Added</th>
       <th style="text-align:center">Last Modified</th>
-      <th style="text-align:center">Document Status</th>
+      <th style="text-align:center">Intake</th>
       <th style="text-align:center" colspan="3">Document Action</th>
     </tr>
   </thead>
@@ -25,11 +25,7 @@
         <td><%= I18n.l d.created_at, format: :short %></td>
         <td><%= I18n.l d.updated_at, format: :short %></td>
         <td>
-          <% if d.visible_status == true %>
-            <%= "Visible" %>
-          <% else %>
-            <%= "Hidden" %>
-          <% end %>
+          <td><%= d.intake_code %></td>
         </td>
         <td><%= link_to "Show", d.document_url.to_s, target: :_blank %></td>
         <td><%= link_to 'Edit', edit_document_path(d) %></td>
