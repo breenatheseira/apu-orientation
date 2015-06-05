@@ -8,10 +8,10 @@ class Api::SessionsController < Devise::SessionsController
   def create   
     visible_documents = Array.new
 
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Orientation Schedule", true)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Student Handbook", true)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Course Schedule", true)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND visible_status = ?", "Fee Schedule", true)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Orientation Schedule", current_student.intake_code)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Student Handbook", current_student.intake_code)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Important Details", current_student.intake_code)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Fee Schedule", current_student.intake_code)
 
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,
@@ -27,7 +27,7 @@ class Api::SessionsController < Devise::SessionsController
                   :orientation_schedule => visible_documents[0],
                   :handbook => visible_documents[1],
                   :important_details => visible_documents[2],
-                  :fee_schedule => visible_documents[3]
+                  :fee_schedule => visible_documents[3]                  
                 } 
               }
             }
