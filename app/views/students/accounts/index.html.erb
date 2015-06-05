@@ -1,39 +1,40 @@
 <h1>View Students' Record</h1>
 
-<table class="table table-striped table-hover">
-	<thead>
-		<tr>
-			<th>Student ID</th>
-			<th>Name</th>
-			<th>Email Address</th>
-			<th>Intake Code</th>
-			<th>Acknowledged At</th>
-			<th>Fee Acknowledgement</th>
-		</tr>
-	</thead>
+<div class="text-center">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th style="text-align:center">Student ID</th>
+				<th style="text-align:center">Name</th>
+				<th style="text-align:center">Email Address</th>
+				<th style="text-align:center">Intake Code</th>
+				<th style="text-align:center">Orientation Pack Acknowledgement</th>
+				<th style="text-align:center">Fee Schedule Acknowledgement</th>
+			</tr>
+		</thead>
 
-	<% @students.each do |s| %>
-		<tr>
-			<td><%= s.id %></td>
-			<td><%= s.name %></td>
-			<td><%= s.email %></td>
-			<td><%= s.intake_code %></td>			
-			<td>
-				<% if s.acknowledged_at.nil? %>
-					<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
-				<% else %>
-					<%= I18n.l s.acknowledged_at, format: :short %>
-				<% end %>
-			</td>
-			<td>
-				<% if s.fee_acknowledgement.nil? %>
-					<%= "Not Acknowledged Yet" %>
-				<% else %>
-					<%= I18n.l s.fee_acknowledgement, format: :short %>
-				<% end %>
-			</td>
-		</tr>
-	<% end %>
-</table>
-
+		<% @students.each do |s| %>
+			<tr>
+				<td><%= s.id %></td>
+				<td><%= s.name %></td>
+				<td><%= s.email %></td>
+				<td><%= s.intake_code %></td>			
+				<td>
+					<% if s.acknowledged_at.nil? %>
+						<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
+					<% else %>
+						<%= I18n.l s.acknowledged_at, format: :short %>
+					<% end %>
+				</td>
+				<td>
+					<% if s.fee_acknowledgement.nil? %>
+						<%= "Not Acknowledged Yet" %>
+					<% else %>
+						<%= I18n.l s.fee_acknowledgement, format: :short %>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 <%= link_to "Back", admins_menu_path %>
