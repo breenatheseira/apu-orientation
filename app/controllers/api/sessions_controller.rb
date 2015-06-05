@@ -6,12 +6,16 @@ class Api::SessionsController < Devise::SessionsController
   respond_to :json
 
   def create   
+    intake = getIntakeCode(current_student.intake_code)
+
+    logger.info "intake: #{intake}"
+
     visible_documents = Array.new
 
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Orientation Schedule", current_student.intake_code)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Student Handbook", current_student.intake_code)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Important Details", current_student.intake_code)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Fee Schedule", current_student.intake_code)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Orientation Schedule", intake)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Student Handbook", intake)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Important Details", intake)
+    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Fee Schedule", intake)
 
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     render :status => 200,
@@ -54,6 +58,14 @@ class Api::SessionsController < Devise::SessionsController
 
 
   private
+
+  def getIntakeCode(student_intake_code)
+    if student_intake_code[3] == 'F'
+      student_intake_code[0..7]
+    elsif student_intake_code[3] == 'D'
+      student_intake_code[0..8]
+      end
+  end
 
   def update_student_acknowledgement(student)
     student.acknowledged_at = student.current_sign_in_at
