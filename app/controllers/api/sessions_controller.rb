@@ -6,7 +6,7 @@ class Api::SessionsController < Devise::SessionsController
   respond_to :json
 
   def create   
-    intake = getIntakeCode(current_student.intake_code)
+    intake = getIntakeCode(current_student.intake_code) # UCD1F1503EE
 
     logger.info "intake: #{intake}"
 
@@ -60,9 +60,9 @@ class Api::SessionsController < Devise::SessionsController
   private
 
   def getIntakeCode(student_intake_code)
-    if student_intake_code[3] == 'F'
+    if student_intake_code[2] == 'F'
       student_intake_code[0..7]
-    elsif student_intake_code[3] == 'D'
+    elsif student_intake_code[2] == 'D'
       student_intake_code[0..8]
       end
   end
