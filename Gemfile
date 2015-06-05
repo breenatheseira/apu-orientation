@@ -58,3 +58,4 @@ gem 'cloudinary'
 
 # For GUI for better UI/UX experience
 gem 'bootstrap-sass', '~> 3.3.4'
+gem 'hirb'
