@@ -4,12 +4,14 @@
 <div class="row">
 	<div class="text-center">
 		<div class="col-md-6">
-			<%= image_tag("http://res.cloudinary.com/apuorientation/image/upload/v1433189633/AddDocumentIcon_mc5mtf.png", 
-							alt: "All Documents") %>
+			<%= link_to image_tag("http://res.cloudinary.com/apuorientation/image/upload/v1433189633/AddDocumentIcon_mc5mtf.png", 
+							alt: "All Documents"),
+							documents_path %>
 		</div>
 		<div class="col-md-6">
-			<%= image_tag("http://res.cloudinary.com/apuorientation/image/upload/v1433189633/StudentIcon_y3vbbe.png", 
-							alt: "View Students' List") %>
+			<%= link_to image_tag("http://res.cloudinary.com/apuorientation/image/upload/v1433189633/StudentIcon_y3vbbe.png", 
+							alt: "View Students' List"),
+							students_accounts_path %>
 		</div>						
 		
 		<div class="col-md-6">
