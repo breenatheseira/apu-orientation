@@ -5,7 +5,9 @@ class Api::SessionsController < Devise::SessionsController
 
   respond_to :json
 
-  def create   
+  def create  
+    warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+
     intake = getIntakeCode(current_student.intake_code) # UCD1F1503EE
 
     logger.info "intake: #{intake}"
@@ -17,7 +19,7 @@ class Api::SessionsController < Devise::SessionsController
     visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Important Details", intake)
     visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Fee Schedule", intake)
 
-    warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+    
     render :status => 200,
            :json => { 
               :success => true,
@@ -37,7 +39,7 @@ class Api::SessionsController < Devise::SessionsController
             }
     if (current_student.sign_in_count == 1)
       update_student_acknowledgement(current_student)      
-    end
+    end      
   end
 
   def destroy    
