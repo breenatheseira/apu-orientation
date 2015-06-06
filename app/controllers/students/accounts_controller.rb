@@ -7,9 +7,9 @@ class Students::AccountsController < ApplicationController
 		@student = Student.find(params[:id])
 		
 		if @student.update_attributes(acknowledged_at: Time.now)
-			flash.now[:success] = "#{@student.id} (Student #{@student.name}) has been acknowledged to receive the application."
+			flash[:notice] = "#Student ID: {@student.id} (Student #{@student.name}) has been acknowledged to receive the application."
 		else
-			flash.now[:danger] = "Failed to acknowledge student."
+			flash[:danger] = "Failed to acknowledge student."
 		end		
 		redirect_to students_accounts_path
 	end
@@ -18,9 +18,9 @@ class Students::AccountsController < ApplicationController
 		@student = Student.find(params[:id])
 		
 		if @student.update_attributes(fee_acknowledgement: Time.now)
-			flash.now[:success] = "#{@student.id} (Student #{@student.name}) has acknowledge the Fee Schedule."
+			flash[:notice] = "#Student ID: {@student.id} (Student #{@student.name}) has acknowledge the Fee Schedule."
 		else
-			flash.now[:danger] = "Failed to update student's fee acknowledgement status."
+			flash[:danger] = "Failed to update student's fee acknowledgement status."
 		end		
 		redirect_to students_accounts_path
 	end
