@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   namespace :students do
     resources :accounts
     get 'accounts/acknowledge_student/:id' => 'accounts#acknowledge_student', as: :accounts_acknowledge
+    get 'accounts/acknowledge_fee/:id' => 'accounts#acknowledge_fee', as: :accounts_acknowledge_fee
   end
 
   namespace :api do

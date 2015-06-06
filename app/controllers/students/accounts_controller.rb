@@ -14,6 +14,17 @@ class Students::AccountsController < ApplicationController
 		redirect_to students_accounts_path
 	end
 
+	def acknowledge_fee
+		@student = Student.find(params[:id])
+		
+		if @student.update_attributes(fee_acknowledgement: Time.now)
+			flash.now[:success] = "#{@student.id} (Student #{@student.name}) has acknowledge the Fee Schedule."
+		else
+			flash.now[:danger] = "Failed to update student's fee acknowledgement status."
+		end		
+		redirect_to students_accounts_path
+	end
+
 	private
 
 	def student_params

@@ -28,7 +28,7 @@
 				</td>
 				<td>
 					<% if s.fee_acknowledgement.nil? %>
-						<%= "Not Acknowledged Yet" %>
+						<%= link_to "Submitted Fee Schedule Acknowledgement Form", students_accounts_acknowledge_fee_path(s) %>
 					<% else %>
 						<%= I18n.l s.fee_acknowledgement, format: :short %>
 					<% end %>
