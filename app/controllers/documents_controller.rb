@@ -1,5 +1,7 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate!
+
   require 'carrierwave/orm/activerecord'
   
   # GET /documents
@@ -74,5 +76,12 @@ class DocumentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
       params.require(:document).permit(:name, :document_type, :document_url, :intake_code)
+    end
+
+    def authenticate!
+      unless student_signed_in? || admin_signed_in?
+        flash[:alert] = "Please login before accessing this page."
+        redirect_to root_path
+      end
     end
 end

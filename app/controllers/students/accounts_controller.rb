@@ -1,4 +1,5 @@
 class Students::AccountsController < ApplicationController
+	before_action :authenticate_admin!
 	def index
 		@students = Student.all
 	end
