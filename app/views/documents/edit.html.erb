@@ -2,5 +2,6 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Destroy', @document, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', documents_path %>
+<%= link_to 'Destroy', @document, method: :delete, data: { confirm: 'Are you sure?' }, 
+	class: "btn btn-danger btn-md", style: "color:white" %> 
+<%= link_to 'Back', documents_path, class: "btn btn-default btn-md" %>

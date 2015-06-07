@@ -16,10 +16,12 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   def new
     @document = Document.new
+    @document_type = "Student Handbook"
   end
 
   # GET /documents/1/edit
   def edit
+    @document_type = set_document.document_type
   end
 
   # POST /documents

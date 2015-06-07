@@ -8,15 +8,15 @@
     <div class="col-md-5" style="text-align:right">
       <%= f.label :email %>
     </div>
-    <div class="col-md-5" style="text-align:left">
-      <%= f.email_field :email, autofocus: true %>
+    <div class="col-md-3" style="text-align:left">
+      <%= f.email_field :email, class: "form-control", autofocus: true %>
     </div>
 
     <div class="col-md-5" style="text-align:right">
       <%= f.label :password %>
     </div>
-    <div class="col-md-7" style="text-align:left">
-      <%= f.password_field :password, autocomplete: "off" %>
+    <div class="col-md-3" style="text-align:left">
+      <%= f.password_field :password, class: "form-control", autocomplete: "off" %>
     </div>
 
     <div class="col-md-5" style="text-align:left">
@@ -30,9 +30,11 @@
       <% end %>
     
       <div class="actions">
-          <div class="submit">
-          <%= f.submit "Log in" %>
+        <div class="submit">
+          <%= f.submit "Log in", class: "btn btn-info btn-md col-md-2" %>
         </div>
+        <br/>
+        <br/>
         <%= render "devise/shared/links" %>
         </div>
       <% end %>
