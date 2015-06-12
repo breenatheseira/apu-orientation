@@ -17,12 +17,13 @@ class Api::TasksController < ApplicationController
 
 		unless student.nil?
 			student.fee_acknowledgement = Time.now
+			student.authentication_token = nil			
 			student.update_attributes(student_params)
-			student.save
+			student.save			
 		end
   	end
 
   	def student_params
-    	params.require(:student).permit(:fee_acknowledgement)
+    	params.require(:student).permit(:fee_acknowledgement, :authentication_token)
 	end
 end
