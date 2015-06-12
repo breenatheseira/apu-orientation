@@ -21,14 +21,18 @@
 				<td><%= s.intake_code %></td>			
 				<td>
 					<% if s.acknowledged_at.nil? %>
-						<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
+						<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s),
+								data: { confirm: "Are you sure to acknowledge that #{s.name}" + 
+												 " (#{s.username}) has received the Orientation Pack?" } %>
 					<% else %>
 						<%= I18n.l s.acknowledged_at, format: :short %>
 					<% end %>
 				</td>
 				<td>
 					<% if s.fee_acknowledgement.nil? %>
-						<%= link_to "Submitted Fee Schedule Acknowledgement Form", students_accounts_acknowledge_fee_path(s) %>
+						<%= link_to "Submitted Fee Schedule Acknowledgement Form", students_accounts_acknowledge_fee_path(s),
+								data: { confirm: "Are you sure to acknowledge that #{s.name}" + 
+												 " (#{s.username}) has submitted the Fee Schedule Acknowledgement Form?" } %>
 					<% else %>
 						<%= I18n.l s.fee_acknowledgement, format: :short %>
 					<% end %>
