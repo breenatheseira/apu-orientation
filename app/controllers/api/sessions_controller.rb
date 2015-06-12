@@ -14,12 +14,15 @@ class Api::SessionsController < Devise::SessionsController
 
     visible_documents = Array.new
 
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Orientation Schedule", intake)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Student Handbook", intake)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Important Details", intake)
-    visible_documents << Document.select(:document_url).where("document_type = ? AND intake_code = ?", "Fee Schedule", intake)
+    visible_documents << select_document("Orientation Schedule", intake)
+    visible_documents << select_document("Student Handbook", intake)
+    visible_documents << select_document("Important Details", intake)
+    visible_documents << select_document("Fee Schedule", intake)
 
-    
+    logger.info "visible_documents's length: #{visible_documents.count}"
+    logger.info "is visible_documents empty?: #{visible_documents.empty?}"
+    logger.info "first element: visible_documents: #{visible_documents.first.blank?}"
+
     render :status => 200,
            :json => { 
               :success => true,
@@ -37,8 +40,10 @@ class Api::SessionsController < Devise::SessionsController
                 } 
               }
             }
-    if (current_student.sign_in_count == 1)
-      update_student_acknowledgement(current_student)      
+    if (current_student.sign_in_count == 1 && documents_exists(visible_documents))
+      update_student_acknowledgement(current_student)
+    else
+      current_student.update_attributes(sign_in_count: 0)
     end      
   end
 
@@ -69,13 +74,25 @@ class Api::SessionsController < Devise::SessionsController
       end
   end
 
+  def select_document(type, intake)
+    Document.select(:document_url).where("document_type = ? AND intake_code = ?", type, intake)
+  end
+
+  def documents_exists(array)
+    for i in 0..3
+      if (array[i].blank?)
+        return false
+      end
+    end
+  end
+
   def update_student_acknowledgement(student)
     student.acknowledged_at = student.current_sign_in_at
     student.update_attributes(student_params)
   end
 
   def student_params
-    params.require(:student).permit(:acknowledged_at)
+    params.require(:student).permit(:acknowledged_at, :sign_in_count)
   end
 
 end
