@@ -1,7 +1,7 @@
 class Students::AccountsController < ApplicationController
 	before_action :authenticate_admin!
 	def index
-		@students = Student.all.order(fee_acknowledgement: :asc, acknowledged_at: :asc)
+		@students = Student.all.order(fee_acknowledgement: :asc, acknowledged_at: :asc).page(params[:page]).per(25)
 	end
 
 	def acknowledge_student
