@@ -94,6 +94,12 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -200,6 +206,8 @@ DEPENDENCIES
   hirb
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
+  kaminari-bootstrap (~> 3.0.1)
   pg (~> 0.18.1)
   rails (= 4.2.0)
   rails_12factor
