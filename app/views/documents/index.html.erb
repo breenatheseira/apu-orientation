@@ -1,16 +1,17 @@
 <h1>Listing Documents</h1>
 
-<table>
+<div class="text-center">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Document ID</th>
-      <th>Document Name</th>
-      <th>Document Type</th>
-      <th>Document URL</th>
-      <th>Date Added</th>
-      <th>Last Modified</th>
-      <th>Document Status</th>
-      <th colspan="3">Document Action</th>
+      <th style="text-align:center">Document ID</th>
+      <th style="text-align:center">Document Name</th>
+      <th style="text-align:center">Document Type</th>
+      <th style="text-align:center">Document URL</th>
+      <th style="text-align:center">Date Added</th>
+      <th style="text-align:center">Last Modified</th>
+      <th style="text-align:center">Intake</th>
+      <th style="text-align:center" colspan="3">Document Action</th>
     </tr>
   </thead>
 
@@ -21,23 +22,18 @@
         <td><%= d.name %></td>
         <td><%= d.document_type %></td>
         <td><%= d.document_url %></td>
-        <td><%= d.created_at %></td>
-        <td><%= d.updated_at %></td>
-        <td>
-          <% if d.visible_status == true %>
-            <%= "Visible" %>
-          <% else %>
-            <%= "Hidden" %>
-          <% end %>
-        </td>
-        <td><%= link_to 'Show', d %></td>
+        <td><%= I18n.l d.created_at, format: :short %></td>
+        <td><%= I18n.l d.updated_at, format: :short %></td>
+        <td><%= d.intake_code %></td>
+        <td><%= link_to "Show", d.document_url.to_s, target: :_blank %></td>
         <td><%= link_to 'Edit', edit_document_path(d) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<center><%= paginate @documents %></center>
+</div>
 <br>
 
-<%= link_to 'New Document', new_document_path %> |
-<%= link_to "Back", admins_menu_path %>
+<%= link_to 'New Document', new_document_path, class: "btn btn-success btn-md", style: "color:white" %>
+<%= link_to "Back", admins_menu_path, class: "btn btn-default btn-md" %>

@@ -1,11 +1,13 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate!
+
   require 'carrierwave/orm/activerecord'
   
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = Document.all.order(intake_code: :desc).page(params[:page]).per(8)
   end
 
   # GET /documents/1
@@ -16,10 +18,12 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   def new
     @document = Document.new
+    @document_type = "Student Handbook"
   end
 
   # GET /documents/1/edit
   def edit
+    @document_type = set_document.document_type
   end
 
   # POST /documents
@@ -29,7 +33,6 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        set_other_existing_document_to_hidden(@document.id, @document.document_type)
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: document_path }
       else
@@ -45,7 +48,6 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
-        set_other_existing_document_to_hidden(@document.id, @document.document_type)
         format.html { redirect_to documents_path, notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: documents_path }
       else
@@ -73,15 +75,13 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:name, :document_type, :document_url, :visible_status)
+      params.require(:document).permit(:name, :document_type, :document_url, :intake_code)
     end
 
-    def set_other_existing_document_to_hidden(new_document_id, new_document_type)
-      @doc = Document.where(document_type: new_document_type).where('id NOT in (:ids)', ids: new_document_id)
-
-      @doc.each do |d|
-        d.update_attributes(visible_status: false)
+    def authenticate!
+      unless student_signed_in? || admin_signed_in?
+        flash[:alert] = "Please login before accessing this page."
+        redirect_to root_path
       end
     end
-
 end

@@ -1,37 +1,52 @@
-<%= form_for(@document) do |f| %>
-  <% if @document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
-      <ul>
-      <% @document.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_for(@document) do |f| %>
+    <% if @document.errors.any? %>
+      <div class="alert alert-danger" role="alert"> 
+        <h3><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h3>
+        <ul>        
+          <% @document.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <div class="form-group">
+      Document Name: <%= f.text_field :name, placeholder: "Name of the Document",
+                          class: "form-control"  %>
+      </div>  
+    
+    <br/>
+
+    <div class="form-group">
+      Document Type: 
+        <%= f.select(:document_type,  [['Student Handbook', 'Student Handbook'], 
+                                ['Orientation Schedule', 'Orientation Schedule'],
+                                ['Fee Schedule', 'Fee Schedule'],
+                                ['Important Details', 'Important Details']],
+                                { selected: @document_type}, 
+                                {class: "btn btn-default dropdown-toggle", :'data-toggle' => 'dropdown'}) %>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <div class = "btn-group">
+        Upload Document: <%= f.file_field :document_url, accept: ".pdf" %>
+      </div>
+    </div>
+
+    <br/>
+    
+    <div class="form-group">
+      Intake Code: <%= f.text_field :intake_code, placeholder: "Intake Code of Students Viewing the Document", 
+                        class: "form-control"  %>
+    </div>
+
+    <br/>
+    
+    <div class="form-group">
+        <div class="btn-group", role="button">
+          <%= f.submit "Save Document", class: "btn btn-info btn-md" %>
     </div>
   <% end %>
-
-<table>
-  <tr>
-    <td><%= f.label :name %></td>
-    <td><%= f.text_field :name %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :document_type %></td>
-    <td><%= f.select :document_type, [['Student Handbook', 'Student Handbook'], 
-                            ['Orientation Schedule', 'Orientation Schedule'],
-                            ['Fee Schedule', 'Fee Schedule'],
-                            ['Course Schedule', 'Course Schedule']] %></td>
-  </tr>
-  <tr>
-    <td>Upload Document</td>
-    <td><%= f.file_field :document_url %></td>
-  </tr>
-  <tr>
-    <td><%= f.label "Visibility" %></td>
-    <td><%= f.check_box :visible_status %></td>
-  </tr>
-</table>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

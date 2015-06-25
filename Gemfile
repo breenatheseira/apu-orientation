@@ -47,6 +47,7 @@ end
 
 group :production do
 	gem 'pg', '~>0.18.1'
+	gem 'rails_12factor'
 end
 
 gem 'devise'
@@ -54,3 +55,11 @@ gem 'devise'
 gem 'devise-token_authenticatable'
 gem 'carrierwave'
 gem 'cloudinary'
+
+# For GUI for better UI/UX experience
+gem 'bootstrap-sass', '~> 3.3.4'
+gem 'hirb'
+
+# For Pagination
+gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'

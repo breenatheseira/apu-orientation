@@ -1,28 +1,45 @@
 <h1>View Students' Record</h1>
 
-<table>
-	<tr>
-		<thead>Student ID</thead>
-		<thead>Name</thead>
-		<thead>Email Address</thead>
-		<thead>Intake Code</thead>
-		<thead>Acknowledged At</thead>		
-	</tr>
-	<% @students.each do |s| %>
-		<tr>
-			<td><%= s.id %></td>
-			<td><%= s.name %></td>
-			<td><%= s.email %></td>
-			<td><%= s.intake_code %></td>			
-			<td>
-				<% if s.acknowledged_at.nil? %>
-					<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s) %>
-				<% else %>
-					<%= s.acknowledged_at %>
-				<% end %>
-			</td>
-		</tr>
-	<% end %>
-</table>
+<div class="text-center">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th style="text-align:center">Student ID</th>
+				<th style="text-align:center">Name</th>
+				<th style="text-align:center">Email Address</th>
+				<th style="text-align:center">Intake Code</th>
+				<th style="text-align:center">Orientation Pack Acknowledgement</th>
+				<th style="text-align:center">Fee Schedule Acknowledgement</th>
+			</tr>
+		</thead>
 
-<%= link_to "Back", admins_menu_path %>
+		<% @students.each do |s| %>
+			<tr>
+				<td><%= s.username %></td>
+				<td><%= s.name %></td>
+				<td><%= s.email %></td>
+				<td><%= s.intake_code %></td>			
+				<td>
+					<% if s.acknowledged_at.nil? %>
+						<%= link_to "Acknowledge Now", students_accounts_acknowledge_path(s),
+								data: { confirm: "Are you sure to acknowledge that #{s.name}" + 
+												 " (#{s.username}) has received the Orientation Pack?" } %>
+					<% else %>
+						<%= I18n.l s.acknowledged_at, format: :short %>
+					<% end %>
+				</td>
+				<td>
+					<% if s.fee_acknowledgement.nil? %>
+						<%= link_to "Submitted Fee Schedule Acknowledgement Form", students_accounts_acknowledge_fee_path(s),
+								data: { confirm: "Are you sure to acknowledge that #{s.name}" + 
+												 " (#{s.username}) has submitted the Fee Schedule Acknowledgement Form?" } %>
+					<% else %>
+						<%= I18n.l s.fee_acknowledgement, format: :short %>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+	<center><%= paginate @students %></center>
+</div>
+<%= link_to "Back", admins_menu_path, class: "btn btn-default btn-md" %>
